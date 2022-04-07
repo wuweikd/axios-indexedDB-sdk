@@ -22,7 +22,7 @@
 ## 原理
 1. 通过`indexedDB`缓存每次请求的接口数据。
 2. 请求接口之前，如果发现有缓存的数据，则首先读取缓存数据，待接口更新后再回调更新页面和更新数据库。
-   ![原理图](img.png)
+   ![原理图](https://github.com/wuweikd/axios-indexedDB-sdk/blob/main/img.png?raw=true)
 
 ## 把此方案通用为SDK
 SDK只暴露一个方法，只需调用此方法即可拦截并缓存接口。你可以理解此方法为一个自带拦截器的请求方法。
@@ -36,10 +36,10 @@ SDK只暴露一个方法，只需调用此方法即可拦截并缓存接口。�
 
 ```shell
 # 方式一：代理axios方式
-npm i @yy/axios-indexed-sdk axios
+npm i axios-indexeddb-sdk axios
 
 # 方式二：自定义的请求方式
-npm i @yy/axios-indexed-sdk
+npm i /axios-indexeddb-sdk
 ```
 
 ### 使用
@@ -81,8 +81,7 @@ idb.httpWithIDB({
 
 ### 类型解释
 
-[点击查看：全部的类型定义](https://git.duowan.com/webs/efox/axios-indexed-sdk/-/blob/master/dist/index.d.ts)
-> 若无权限，请申请仓库的权限；或者直接查看`npm i @yy/axios-indexed-sdk`之后的库文件
+[点击查看：全部的类型定义](https://github.com/wuweikd/axios-indexedDB-sdk/blob/main/dist/index.d.ts)
 
 ```ts
 // 构造器定义
@@ -115,9 +114,9 @@ declare class Main extends Middleware {
 
 ### demo
 1. 
-2. demo1: 托管axios请求到sdk: https://github.com/wuweikd/axios-indexedDB-sdk/-/blob/master/test/index.html
+2. demo1: 托管axios请求到sdk: https://github.com/wuweikd/axios-indexedDB-sdk/blob/main/test/index.html
 
-3. demo2, 传入请求到sdk，自动竞速回调：https://github.com/wuweikd/axios-indexedDB-sdk/-/blob/master/test/index2.html
+3. demo2, 传入请求到sdk，自动竞速回调：https://github.com/wuweikd/axios-indexedDB-sdk/blob/main/test/index.html
 
 
 

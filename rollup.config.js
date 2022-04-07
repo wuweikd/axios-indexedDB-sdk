@@ -63,7 +63,7 @@ export default [
     output: {
       file: "dist/bundle.js",
       format: "esm",
-      name: "axios-indexed-sdk",
+      name: "axios-indexeddb-sdk",
       sourcemap: true
     },
     external: ["axios"]

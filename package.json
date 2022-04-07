@@ -1,6 +1,6 @@
 {
   "name": "axios-indexeddb-sdk",
-  "version": "0.0.14",
+  "version": "1.0.0",
   "description": "接口请求缓存库",
   "main": "dist/bundle.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "rollup -c --environment NODE_ENV:prod",
     "dev": "rollup -c -w --environment NODE_ENV:dev",
-    "pub": "npm publish --registry=https://npm-registry.duowan.com",
+    "pub": "npm publish",
     "eslint:fix": "eslint --fix --ext .ts,.js lib"
   },
   "keywords": [
