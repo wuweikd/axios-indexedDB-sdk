@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试indexedDB</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.js"></script>
+  <script src="./md5.min.js"></script>
+</head>
+<body>
+  <h1>请打开控制台查看</h1>
+  <button id="testButton">测试发送数据axios2</button>
+  <script type="module">
+    import IDB from '../dist/bundle.js'
+    const isRealData = function ({data}) {
+      console.log('判断数据是否合法，以控制是否读取数据库数据显示', data)
+      return data && data.data &&data.data.code === '200'
+    }
+    const idb = new IDB({ appKey: 'testAppKey', outTime: 0, storeName: 'test-store', isRealData: isRealData, md5: md5})
+    const fetch =  axios.create({
+      withCredentials: true,
+    })
+    async function test() {
+      // 模拟发送请求
+      idb.httpWithIDB({
+        DbHttp: fetch,
+        axiosRequestConfig: {
+          method: 'get',
+          url: 'http://yapi.smart-xwork.cn/mock/125922/api/test/api/test',
+          params: {
+            // time: Date.now(),
+            p1: '123',
+            p2: '456'
+          }
+        },
+        funName: 'testfunName',
+        newDataCb: (data) => {
+          alert('数据改变了===>')
+        },
+        fetchDataCb: (realData) => {
+          console.log('接口结束的数据，', realData)
+        },
+        // formatParams: ({params}) => {
+        //   delete params.time
+        //   params.newParms = '这是新增参数' // 参数进行格式化处理
+        //   return params
+        // },
+        formatResultData: ({data: res}) => {
+          console.log('formatResultData---->', res)
+          delete res.data.random // 格式化结果再存储，用于去除非必须的字段,比如删除随机数
+          delete res.data.like // 格式化结果再存储，用于去除非必须的字段,比如删除随机数
+          res = {data: res.data}
+          return res
+        }
+      }).then((res) => {
+        console.log('得到数据', res)
+      })
+    }
+    document.getElementById('testButton').addEventListener('click', test)
+  </script>
+</body>
+</html>

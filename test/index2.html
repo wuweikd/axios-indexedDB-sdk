@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试indexedDB</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.24.0/axios.js"></script>
+</head>
+<body>
+  <h1>请打开控制台查看</h1>
+  <button id="testButton">测试发送数据fetch</button>
+  <script type="module">
+    import IDB from '../dist/bundle.js'
+    const url = 'http://yapi.smart-xwork.cn/mock/125922/api/test/api/test'
+    async function test() {
+      const myFetch = new Promise((resolve, reject) => {
+        const ajax = new XMLHttpRequest()
+        ajax.open('get', url)
+        ajax.send()
+        ajax.onreadystatechange = function () {
+          if (ajax.readyState == 4) {
+            const status = ajax.status
+            if (status >= 200 && status < 300) {
+              try {
+                setTimeout(() => {
+                  console.log('接口data', JSON.parse(ajax.responseText))
+                  resolve(JSON.parse(ajax.responseText))
+                }, 2000)
+              } catch (err) {
+                console.error('[ERROR] Fetch PreloadData Error', err)
+                reject(err)
+              }
+            } else {
+              reject('fail')
+            }
+          }
+        }
+      })
+
+      const idb = new IDB({ appKey: 'testAppKey222', storeName: 'test-store222'})
+      const data = await idb.httpWithIDB({
+        fetchKey: '1641379655454',
+        funName: '610b9447c82fed7a0c87d245',
+        fetchPromise: myFetch,
+        newDataCb: (data) => {
+          console.log('newDataCb====>',data)
+        }
+      })
+      console.log("得到数据-----》", data)
+    }
+    document.getElementById('testButton').addEventListener('click', test)
+  </script>
+</body>
+</html>
